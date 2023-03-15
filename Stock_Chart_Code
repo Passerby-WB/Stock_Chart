@@ -1,0 +1,28 @@
+from FinMind.data import DataLoader
+import requests
+from bs4 import BeautifulSoup
+import pandas as pd
+import time
+import matplotlib.pyplot as plt
+from matplotlib.font_manager import FontProperties
+import seaborn as sns
+import datetime
+
+stock_no = '2330'  # TSMC
+dl = DataLoader()
+stock_data = dl.taiwan_stock_daily(stock_id=stock_no, start_date='2000-01-01')
+df = stock_data.tail(30)
+df['date'] = df['date'].str.replace('2023-', '')
+sns.lineplot(x = df["date"], y = df["Trading_Volume"])
+plt.xlabel = "date"
+plt.xticks(rotation = 45)
+
+# 設定儲存路徑
+save_path_first = 'C:/Users/Jaspe/OneDrive/桌面/stock_chart/'
+# 取得當前日期，格式為 yyyy-mm-dd
+today1 = datetime.date.today()
+save_path_second = ".png"
+save_path = save_path_first + str(today1) + "trading_volume" + save_path_second
+# plt.show()
+# 儲存圖片
+plt.savefig(save_path)
